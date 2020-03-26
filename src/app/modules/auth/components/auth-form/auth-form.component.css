@@ -1,13 +1,13 @@
 .full-width {
-    width: 100%;
+  width: 100%;
 }
 
 button {
-    display: block;
-    margin: 15px auto;
-    width: 20%;
+  display: block;
+  margin: 15px auto;
+  width: 20%;
 }
 
 .errorMessage {
-    color: red;
+  color: red;
 }

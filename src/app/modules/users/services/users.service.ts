@@ -14,7 +14,7 @@ export class UsersService {
   constructor(private httpClient: HttpClient) { }
 
   public getUsers(pageIndex: number): void {
-    this.httpClient.get<any>(`https://reqres.in/api/users?page=${pageIndex}`).subscribe((res) => {
+    this.httpClient.get<any>(`https://reqres.in/api/users?delay=3&page=${pageIndex}`).subscribe((res) => {
       const users = res.data.map(el => {
         return {
           id: el.id,
