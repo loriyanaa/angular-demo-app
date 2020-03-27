@@ -1,11 +1,16 @@
 <div class="users-list-wrapper">
   <h2>Users</h2>
   <mat-list role="list">
-    <mat-list-item *ngFor="let user of users$ | async" role="listitem">
-      <span class="user-id"> {{ user.id }} </span> 
-      <span class="user-name"> {{ user.firstName + ' ' + user.lastName}} </span> 
-      <span class="user-email"> {{ user.email }}</span>
-    </mat-list-item>
+    <ums-users-list-item *ngFor="let user of users$ | async" [user]="user">
+    </ums-users-list-item>
   </mat-list>
-  <mat-paginator [pageSize]="6" [pageIndex]="0" [length]="12" (page)="onPagination($event)"></mat-paginator>
+
+  <mat-paginator 
+    [pageSize]="6" 
+    [pageIndex]="0" 
+    [length]="12" 
+    (page)="onPagination($event)">
+  </mat-paginator>
+  
+  <button mat-raised-button color="primary">Add User</button>
 </div>
