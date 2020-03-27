@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { UsersService } from './../../services/users.service';
-import { User } from '../../models/user';
+import { UserModel } from '../../models/user.model';
+import { SearchUserModel } from './../../models/search-user.model';
 
 @Component({
   selector: 'ums-users-container',
@@ -10,16 +11,22 @@ import { User } from '../../models/user';
   styleUrls: ['./users-container.component.css']
 })
 export class UsersContainerComponent implements OnInit {
-  public users$: Observable<User[]>;
+    public searchCriteria: string;
+    public searchText: string;
+    public users$: Observable<UserModel[]> = this.usersService.users$;
 
-  constructor(private usersService: UsersService) { }
+    constructor(private usersService: UsersService) { }
 
-  public ngOnInit(): void {
-    this.usersService.getUsers(1);
-    this.users$ = this.usersService.users$;
-  }
+    public ngOnInit(): void {
+        this.usersService.getUsers(1);
+    }
 
-  public onPagination(event): void {
-    this.usersService.getUsers(event.pageIndex + 1);
-  }
+    public onPagination(event: any): void {
+        this.usersService.getUsers(event.pageIndex + 1);
+    }
+
+    public onSearch(event: SearchUserModel): void {
+        this.searchCriteria = event.searchCriteria;
+        this.searchText = event.searchText;
+    }
 }

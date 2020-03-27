@@ -1,7 +1,10 @@
 <div class="users-list-wrapper">
   <h2>Users</h2>
+  
+  <ums-users-search (search)="onSearch($event)"></ums-users-search>
+
   <mat-list role="list">
-    <ums-users-list-item *ngFor="let user of users$ | async" [user]="user">
+    <ums-users-list-item *ngFor="let user of users$ | async | filter:searchText:searchCriteria" [user]="user">
     </ums-users-list-item>
   </mat-list>
 

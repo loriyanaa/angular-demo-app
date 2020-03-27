@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
-import { User } from '../models/user';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsersService {
-    private users$$ = new BehaviorSubject<User[]>([]);
+    private users$$ = new BehaviorSubject<UserModel[]>([]);
     public users$ = this.users$$.asObservable();
 
     constructor(private httpClient: HttpClient) { }
@@ -21,8 +21,9 @@ export class UsersService {
                     email: el.email,
                     firstName: el.first_name,
                     lastName: el.last_name,
-                    avatar: el.avatar
-                } as User;
+                    avatar: el.avatar,
+                    name: `${el.first_name} ${el.last_name}`
+                } as UserModel;
             });
 
             this.users$$.next(users);

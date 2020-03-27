@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { User } from '../../users/models/user';
-import { UpdatedUser } from '../models/updated-user.model';
+import { UserModel } from '../../users/models/user.model';
+import { UpdatedUserModel } from '../models/updated-user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    private user$$ = new Subject<User>();
+    private user$$ = new Subject<UserModel>();
     public user$ = this.user$$.asObservable();
 
-    private updatedUser$$ = new Subject<UpdatedUser>();
+    private updatedUser$$ = new Subject<UpdatedUserModel>();
     public updatedUser$ = this.updatedUser$$.asObservable();
 
     constructor(private httpClient: HttpClient) { }
@@ -25,7 +25,7 @@ export class UserService {
                 firstName: res.data.first_name,
                 lastName: res.data.last_name,
                 avatar: res.data.avatar
-            } as User;
+            } as UserModel;
 
             this.user$$.next(user);
         });
@@ -33,9 +33,9 @@ export class UserService {
 
     public updateUser(id: number, name: string, job: string): void {
         this.httpClient.put<any>(`https://reqres.in/api/users/${id}`, {
-            name: name,
-            job: job
-        }).subscribe((user: UpdatedUser) => {
+            name,
+            job
+        }).subscribe((user: UpdatedUserModel) => {
             this.updatedUser$$.next(user);
         });
     }
