@@ -3,12 +3,3 @@
   margin: 0 auto;
   margin-top: 2em;
 }
-
-.user-email {
-  margin-left: 3em;
-  font-weight: bold;
-}
-
-.user-id, .user-name {
-  width: 70%;
-}

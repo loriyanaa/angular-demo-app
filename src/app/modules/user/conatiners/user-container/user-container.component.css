@@ -1,0 +1,44 @@
+.user-details-wrapper {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.user-avatar {
+  height: 10em;
+  width: 10em;
+  border-radius: 50%;
+  display: inline-block;
+  background-size: contain;
+  margin-top: 1em;
+}
+
+.user-details-form {
+  display: grid;
+  margin-top: 2em;
+}
+
+.user-details-form-field {
+  width: 30%;
+  margin: 0 auto;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.action-buttons-container { 
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+.action-buttons-container button { 
+  width: 40%;
+  margin-right: 5%;
+}
+
+.updated-at {
+  margin-top: 2em;
+  font-size: 16pt;
+  font-weight: bold;
+}
