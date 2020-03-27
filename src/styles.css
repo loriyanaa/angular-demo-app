@@ -13,3 +13,7 @@ h2 {
   text-align: center;
   padding-bottom: 1em;
 }
+
+.full-width {
+  width: 100%;
+}

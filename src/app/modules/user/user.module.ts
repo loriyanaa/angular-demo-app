@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { UserContainerComponent } from './conatiners/user-container/user-container.component';
 import { UserRoutingModule } from './user-routing.module';
-import { UmsDirectivesModule } from '../shared/ums-directives.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -15,7 +15,7 @@ import { UmsDirectivesModule } from '../shared/ums-directives.module';
         MatButtonModule,
         MatInputModule,
         UserRoutingModule,
-        UmsDirectivesModule
+        SharedModule
     ],
     declarations: [
         UserContainerComponent

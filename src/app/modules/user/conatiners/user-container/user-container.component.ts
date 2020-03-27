@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { User } from '../../../users/models/user';
-import { UpdatedUser } from '../../models/updated-user.model';
+import { UserModel } from '../../../users/models/user.model';
+import { UpdatedUserModel } from '../../models/updated-user.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -14,18 +14,18 @@ import { UserService } from '../../services/user.service';
 export class UserContainerComponent implements OnInit {
     private userId: number;
 
-    public user: User;
+    public user: UserModel;
     public userDetailsForm: FormGroup;
     public updatedAt: Date;
     public isInEditMode = false;
-    
+
     constructor(
         private userService: UserService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute
     ) {
         this.userId = this.route.snapshot.params['id'];
-        this.initiateUserDetailsForm(); 
+        this.initiateUserDetailsForm();
     }
 
     ngOnInit() {
@@ -71,7 +71,7 @@ export class UserContainerComponent implements OnInit {
         });
     }
 
-    private setUserDetailsValues(user: User): void {
+    private setUserDetailsValues(user: UserModel): void {
         this.userDetailsForm.controls.id.setValue(user.id);
         this.userDetailsForm.controls.firstName.setValue(user.firstName);
         this.userDetailsForm.controls.lastName.setValue(user.lastName);
@@ -95,10 +95,10 @@ export class UserContainerComponent implements OnInit {
             this.userDetailsForm.controls.job.value
         );
 
-        this.userService.updatedUser$.subscribe((user: UpdatedUser) => {
+        this.userService.updatedUser$.subscribe((user: UpdatedUserModel) => {
             this.userDetailsForm.controls.firstName.setValue(user.name);
             this.userDetailsForm.controls.job.setValue(user.job);
-            this.updatedAt = user.updatedAt;           
+            this.updatedAt = user.updatedAt;
             this.toggleFormControls();
         });
     }
