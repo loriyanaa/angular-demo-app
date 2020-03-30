@@ -17,3 +17,18 @@ h2 {
 .full-width {
   width: 100%;
 }
+
+.snackbar-success {
+  background: #77B5A0 !important;
+}
+
+.snackbar-error {
+  background: #D45D4D !important;
+}
+
+.snackbar-success,
+.snackbar-error, 
+.snackbar-success button,
+.snackbar-error button {
+  color: black !important;
+}

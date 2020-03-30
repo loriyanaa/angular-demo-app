@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { Notifications } from '../../../constants/notifications.model';
+import { NotificationsService } from '../../../services/notifications.service';
 import { UserModel } from '../../users/models/user.model';
 import { UpdatedUserModel } from '../models/updated-user.model';
 
@@ -15,7 +17,13 @@ export class UserService {
     private updatedUser$$ = new Subject<UpdatedUserModel>();
     public updatedUser$ = this.updatedUser$$.asObservable();
 
-    constructor(private httpClient: HttpClient) { }
+    private deletedUser$$ = new Subject<boolean>();
+    public deletedUser$ = this.deletedUser$$.asObservable();
+
+    constructor(
+        private httpClient: HttpClient,
+        private notificationsService: NotificationsService
+    ) { }
 
     public getUser(id: number): void {
         this.httpClient.get<any>(`https://reqres.in/api/users/${id}`).subscribe((res) => {
@@ -37,6 +45,14 @@ export class UserService {
             job
         }).subscribe((user: UpdatedUserModel) => {
             this.updatedUser$$.next(user);
+            this.notificationsService.success(Notifications.UserUpdatedSuccessfully);
+        });
+    }
+
+    public deleteUser(id: number): void {
+        this.httpClient.delete<any>(`https://reqres.in/api/users/${id}`).subscribe(() => {
+            this.deletedUser$$.next(true);
+            this.notificationsService.success(Notifications.UserDeletedSuccessfully);
         });
     }
 }
