@@ -8,11 +8,11 @@ export class RoutingService {
 
     constructor(private router: Router) { }
 
-    navigateToLogin(): Promise<boolean> {
+    public navigateToLogin(): Promise<boolean> {
         return this.router.navigate(['/']);
     }
 
-    navigateToUsersPage(): Promise<boolean> {
+    public navigateToUsersPage(): Promise<boolean> {
         return this.router.navigate(['/users']);
     }
 }

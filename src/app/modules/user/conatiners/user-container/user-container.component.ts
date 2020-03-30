@@ -32,7 +32,7 @@ export class UserContainerComponent implements OnInit {
         this.userId = this.route.snapshot.params['id'];
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.userService.getUser(this.userId);
              
         this.deletedUser$.pipe(first()).subscribe(() => {
@@ -40,7 +40,7 @@ export class UserContainerComponent implements OnInit {
         });
     }
 
-    onDeleteUser(): void {
+    public onDeleteUser(): void {
         const dialogRef = this.matDialog.open(DeleteUserDialogComponent, { disableClose: true });
 
         dialogRef.afterClosed().subscribe((res: boolean) => {
@@ -50,7 +50,7 @@ export class UserContainerComponent implements OnInit {
         });
     }
 
-    onSaveUserInformation(user: UpdatedUserModel): void {
+    public onSaveUserInformation(user: UpdatedUserModel): void {
         this.userService.updateUser(user.id, user.name, user.job);
     }
 }

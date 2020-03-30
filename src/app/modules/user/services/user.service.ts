@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { Notifications } from '../../../constants/notifications.model';
+import { NotificationsModel } from '../../../constants/notifications.model';
 import { NotificationsService } from '../../../services/notifications.service';
 import { UserModel } from '../../users/models/user.model';
 import { UpdatedUserModel } from '../models/updated-user.model';
@@ -45,14 +45,14 @@ export class UserService {
             job
         }).subscribe((user: UpdatedUserModel) => {
             this.updatedUser$$.next(user);
-            this.notificationsService.success(Notifications.UserUpdatedSuccessfully);
+            this.notificationsService.success(NotificationsModel.UserUpdatedSuccessfully);
         });
     }
 
     public deleteUser(id: number): void {
         this.httpClient.delete<any>(`https://reqres.in/api/users/${id}`).subscribe(() => {
             this.deletedUser$$.next(true);
-            this.notificationsService.success(Notifications.UserDeletedSuccessfully);
+            this.notificationsService.success(NotificationsModel.UserDeletedSuccessfully);
         });
     }
 }

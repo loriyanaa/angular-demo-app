@@ -29,7 +29,7 @@ export class UserDetailsFormComponent implements OnChanges {
         this.initiateUserDetailsForm();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes.user && changes.user.currentValue) {
             this.setUserDetailsValues();
         }
@@ -39,7 +39,7 @@ export class UserDetailsFormComponent implements OnChanges {
         }
     }
 
-    onEditUser(): void {
+    public onEditUser(): void {
         this.isInEditMode = !this.isInEditMode;
 
         if (!this.isInEditMode) {

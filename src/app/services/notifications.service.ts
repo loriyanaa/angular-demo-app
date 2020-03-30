@@ -17,11 +17,11 @@ export class NotificationsService {
 
     constructor(private snackBar: MatSnackBar) { }
 
-    success(message: string): void {
+    public success(message: string): void {
       this.snackBar.open(message, 'Close', this.configSuccess);
     }
 
-    error(message: string): void {
+    public error(message: string): void {
       this.snackBar.open(message, 'Close', this.configError);
     }
 }

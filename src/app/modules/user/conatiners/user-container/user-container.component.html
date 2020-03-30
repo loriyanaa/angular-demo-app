@@ -6,7 +6,7 @@
     [updatedUser]="updatedUser$ | async"
     (saveUser)="onSaveUserInformation($event)">
 
-    <button mat-stroked-button color="accent" (click)="onDeleteUser()">
+    <button type="button" mat-stroked-button color="accent" (click)="onDeleteUser()">
       Delete
     </button>
   </ums-user-details-form>

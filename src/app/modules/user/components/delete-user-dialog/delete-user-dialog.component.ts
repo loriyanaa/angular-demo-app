@@ -10,11 +10,11 @@ export class DeleteUserDialogComponent {
 
     constructor(private dialogRef: MatDialogRef<DeleteUserDialogComponent>) { }
     
-    onCancelClick(): void {
+    public onCancelClick(): void {
         this.dialogRef.close();
     }
 
-    onDeleteClick(): void {
+    public onDeleteClick(): void {
         this.dialogRef.close(true);
     }
 }
