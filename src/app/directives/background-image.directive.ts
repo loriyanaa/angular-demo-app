@@ -18,7 +18,7 @@ export class BackgroundImageDirective implements OnInit {
         private renderer: Renderer2
     ) { }
   
-    ngOnInit() {
+    public ngOnInit(): void {
         this.renderer.setStyle(
             this.elementRef.nativeElement, 
             'background-image', `url("${this.backgroundImage}")`);

@@ -1,5 +1,6 @@
 export interface UpdatedUserModel {
-    name: number;
+    id: number;
+    name: string;
     job: string;
-    updatedAt: Date;
+    updatedAt?: Date;
 }

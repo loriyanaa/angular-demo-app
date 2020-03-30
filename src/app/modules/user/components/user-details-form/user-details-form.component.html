@@ -1,0 +1,40 @@
+
+<div *ngIf="updatedAt" class="updated-at">
+  User Updated At: {{ updatedAt | date:'medium' }}
+</div>
+
+<div *ngIf="user">
+  <span class="user-avatar" [umsBackgroundImage]="user.avatar">
+  </span>
+</div>
+
+<form class="user-details-form" (ngSubmit)="onEditUser()" [formGroup]="userDetailsForm">
+  <mat-form-field class="user-details-form-field">
+    <mat-label>ID</mat-label>
+    <input matInput formControlName="id">
+  </mat-form-field>
+  <mat-form-field class="user-details-form-field">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="user-details-form-field">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="user-details-form-field">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="user-details-form-field">
+    <mat-label>Job</mat-label>
+    <input matInput formControlName="job">
+  </mat-form-field>
+
+  <div class="action-buttons-container">
+    <button type="submit" mat-stroked-button color="primary">
+      {{ isInEditMode ? 'Save' : 'Edit' }}
+    </button>
+
+    <ng-content></ng-content>
+  </div>
+</form>

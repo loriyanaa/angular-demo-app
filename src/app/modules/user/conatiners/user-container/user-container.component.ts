@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 
+import { RoutingService } from '../../../../services/routing.service';
 import { UserModel } from '../../../users/models/user.model';
+import { DeleteUserDialogComponent } from '../../components/delete-user-dialog/delete-user-dialog.component';
 import { UpdatedUserModel } from '../../models/updated-user.model';
 import { UserService } from '../../services/user.service';
 
@@ -15,91 +19,38 @@ export class UserContainerComponent implements OnInit {
     private userId: number;
 
     public user: UserModel;
-    public userDetailsForm: FormGroup;
-    public updatedAt: Date;
-    public isInEditMode = false;
+    public user$: Observable<UserModel> = this.userService.user$;
+    public updatedUser$: Observable<UpdatedUserModel> = this.userService.updatedUser$;
+    public deletedUser$: Observable<boolean> = this.userService.deletedUser$;
 
     constructor(
         private userService: UserService,
-        private formBuilder: FormBuilder,
+        private routingService: RoutingService,
+        private matDialog: MatDialog,
         private route: ActivatedRoute
     ) {
         this.userId = this.route.snapshot.params['id'];
-        this.initiateUserDetailsForm();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.userService.getUser(this.userId);
-        this.userService.user$.subscribe(res => {
-            this.user = res;
-            this.setUserDetailsValues(this.user);
+             
+        this.deletedUser$.pipe(first()).subscribe(() => {
+            this.routingService.navigateToUsersPage();
         });
     }
 
-    onEditUser(): void {
-        this.isInEditMode = !this.isInEditMode;
+    public onDeleteUser(): void {
+        const dialogRef = this.matDialog.open(DeleteUserDialogComponent, { disableClose: true });
 
-        if (!this.isInEditMode) {
-            this.saveUserInformation();
-        } else {
-            this.toggleFormControls();
-        }
-    }
-
-    private initiateUserDetailsForm(): void {
-        this.userDetailsForm = this.formBuilder.group({
-            id: [{
-                value: '',
-                disabled: true
-            }],
-            firstName: [{
-                value: '',
-                disabled: true
-            }],
-            lastName: [{
-                value: '',
-                disabled: true
-            }],
-            email: [{
-                value: '',
-                disabled: true
-            }],
-            job: [{
-                value: 'Angular Guru',
-                disabled: true
-            }]
-        });
-    }
-
-    private setUserDetailsValues(user: UserModel): void {
-        this.userDetailsForm.controls.id.setValue(user.id);
-        this.userDetailsForm.controls.firstName.setValue(user.firstName);
-        this.userDetailsForm.controls.lastName.setValue(user.lastName);
-        this.userDetailsForm.controls.email.setValue(user.email);
-    }
-
-    private toggleFormControls(): void {
-        for (var control in this.userDetailsForm.controls) {
-            if (this.isInEditMode) {
-                this.userDetailsForm.controls[control].enable();
-            } else {
-                this.userDetailsForm.controls[control].disable();
+        dialogRef.afterClosed().subscribe((res: boolean) => {
+            if (res) {
+                this.userService.deleteUser(this.userId);
             }
-        }
+        });
     }
 
-    private saveUserInformation(): void {
-        this.userService.updateUser(
-            this.user.id, 
-            this.userDetailsForm.controls.firstName.value,
-            this.userDetailsForm.controls.job.value
-        );
-
-        this.userService.updatedUser$.subscribe((user: UpdatedUserModel) => {
-            this.userDetailsForm.controls.firstName.setValue(user.name);
-            this.userDetailsForm.controls.job.setValue(user.job);
-            this.updatedAt = user.updatedAt;
-            this.toggleFormControls();
-        });
+    public onSaveUserInformation(user: UpdatedUserModel): void {
+        this.userService.updateUser(user.id, user.name, user.job);
     }
 }
