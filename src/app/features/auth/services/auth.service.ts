@@ -19,8 +19,8 @@ export class AuthService {
         private notificationsService: NotificationsService
     ) { }
 
-    public login(loginData): void {
-        this.httpClient.post('https://reqres.in/api/login', { email: loginData.email, password: loginData.password })
+    public login(email: string, password: string): void {
+        this.httpClient.post('https://reqres.in/api/login', { email, password })
             .pipe(catchError(resError => {
                 this.notificationsService.error(resError.error.error);
 
@@ -35,8 +35,8 @@ export class AuthService {
             });
     }
 
-    public register(registerData): void {
-        this.httpClient.post('https://reqres.in/api/register', { email: registerData.email, password: registerData.password })
+    public register(email: string, password: string): void {
+        this.httpClient.post('https://reqres.in/api/register', { email, password })
             .pipe(catchError(resError => {
                 this.notificationsService.error(resError.error.error);
 

@@ -11,6 +11,6 @@ export class RegisterContainerComponent {
     constructor(private authService: AuthService) { }
 
     public onSubmit(formData: any): void {
-        this.authService.register(formData);
+        this.authService.register(formData.email, formData.password);
     }
 }

@@ -11,6 +11,6 @@ export class LoginContainerComponent {
     constructor(private authService: AuthService) { }
 
     public onSubmit(formData: any): void {
-        this.authService.login(formData);
+        this.authService.login(formData.email, formData.password);
     }
 }

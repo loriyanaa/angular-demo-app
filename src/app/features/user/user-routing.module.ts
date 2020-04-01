@@ -17,7 +17,7 @@ const routes: Routes = [
         data: {
             isNewUser: false
         }
-    },
+    }
 ];
 
 @NgModule({

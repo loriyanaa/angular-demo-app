@@ -90,7 +90,7 @@ export class UserService {
     }
 
     public updateUser(user: UpdatedUserModel): void {
-        this.httpClient.put<UpdatedUserModel>(`https://reqres.in/ai/users/${user.id}`, {
+        this.httpClient.put<UpdatedUserModel>(`https://reqres.in/api/users/${user.id}`, {
             name: user.name,
             job: user.job
         }).pipe(catchError((resError) => {
