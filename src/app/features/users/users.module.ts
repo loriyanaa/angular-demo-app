@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 
 import { UsersListItemComponent } from './components/users-list-item/users-list-item.component';
 import { UsersContainerComponent } from './containers/users-container/users-container.component';
@@ -22,6 +23,7 @@ import { UsersSearchComponent } from './components/users-search/users-search.com
         MatPaginatorModule,
         MatRadioModule,
         MatInputModule,
+        MatSortModule,
         UsersRoutingModule,
         SharedModule
     ],
