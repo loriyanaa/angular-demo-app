@@ -66,7 +66,7 @@ export class UsersContainerComponent implements OnInit {
         this.searchText = event.searchText;
     }
 
-    public sortData(event: any): void {
+    public onSortData(event: any): void {
         const sortBy = event.active;
         const sortDirection = event.direction;
 

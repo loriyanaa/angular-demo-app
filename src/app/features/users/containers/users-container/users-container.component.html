@@ -3,7 +3,7 @@
   
   <ums-users-search (search)="onSearch($event)"></ums-users-search>
 
-  <mat-list matSort (matSortChange)="sortData($event)" role="list">
+  <mat-list matSort (matSortChange)="onSortData($event)" role="list">
     <mat-list-item class="header-item" role="listitem">
       <span class="header-label avatar">Image</span> 
       <span  mat-sort-header="name" class="header-label name">Name</span> 
