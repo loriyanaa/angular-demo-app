@@ -65,4 +65,15 @@ export class UsersContainerComponent implements OnInit {
         this.searchCriteria = event.searchCriteria;
         this.searchText = event.searchText;
     }
+
+    public sortData(event: any): void {
+        const sortBy = event.active;
+        const sortDirection = event.direction;
+
+        if (!sortDirection) {
+            this.userService.getUsers(this.pageIndex);
+        } else {
+            this.userService.sortUsers(sortBy, sortDirection);
+        }
+    }
 }

@@ -14,7 +14,7 @@ import { UpdatedUserModel } from '../models/updated-user.model';
     providedIn: 'root'
 })
 export class UserService {
-    private lastPageIndex: number;
+    private lastSelectedPageIndex: number;
 
     private users$$ = new BehaviorSubject<UserModel[]>([]);
     public users$ = this.users$$.asObservable();
@@ -35,7 +35,7 @@ export class UserService {
     ) { }
 
     public getUsers(pageIndex: number): void {
-        this.lastPageIndex = pageIndex;
+        this.lastSelectedPageIndex = pageIndex;
 
         this.httpClient.get<any>(`https://reqres.in/api/users?delay=3&page=${++pageIndex}`)
             .pipe(catchError((resError) => {
@@ -140,7 +140,7 @@ export class UserService {
                 this.users$$.next(updatedUsers);
 
                 this.notificationsService.success(NotificationsModel.UserAddedSuccessfully);
-                this.routingService.navigateToUsers(this.lastPageIndex, true);
+                this.routingService.navigateToUsers(this.lastSelectedPageIndex, true);
             }
         });
     }
@@ -159,8 +159,17 @@ export class UserService {
                     this.users$$.next(updatedUsers);
 
                     this.notificationsService.success(NotificationsModel.UserDeletedSuccessfully);
-                    this.routingService.navigateToUsers(this.lastPageIndex, true);
+                    this.routingService.navigateToUsers(this.lastSelectedPageIndex, true);
                 }
             });
+    }
+
+    public sortUsers(sortBy: string, sortDirection: string): void {
+        let users = this.users$$.getValue();
+        users = users.sort((a, b) =>
+            (a[sortBy] < b[sortBy] ? -1 : 1) * (sortDirection === 'asc' ? 1 : -1)
+        );
+
+        this.users$$.next(users);
     }
 }

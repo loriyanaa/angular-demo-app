@@ -3,7 +3,13 @@
   
   <ums-users-search (search)="onSearch($event)"></ums-users-search>
 
-  <mat-list role="list">
+  <mat-list matSort (matSortChange)="sortData($event)" role="list">
+    <mat-list-item class="header-item" role="listitem">
+      <span class="header-label avatar">Image</span> 
+      <span  mat-sort-header="name" class="header-label name">Name</span> 
+      <span  mat-sort-header="email" class="header-label email">Email</span>
+    </mat-list-item>
+    
     <ums-users-list-item *ngFor="let user of users$ | async | filter:searchText:searchCriteria" [user]="user">
     </ums-users-list-item>
   </mat-list>
