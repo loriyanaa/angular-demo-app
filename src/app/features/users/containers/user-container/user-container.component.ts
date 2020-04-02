@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
-import { ExternalLinksModel } from '../../../../shared/constants/external-links.model';
+import { ExternalLinksConstants } from '../../../../shared/constants/external-links.constants';
 import { UserModel } from '../../models/user.model';
 import { DeleteUserDialogComponent } from '../../components/delete-user-dialog/delete-user-dialog.component';
 import { UpdatedUserModel } from '../../models/updated-user.model';
@@ -30,7 +30,7 @@ export class UserContainerComponent implements OnInit {
         const isNewUser: boolean = this.route.snapshot.data.isNewUser;
 
         if (isNewUser) {
-            this.user$ = of({ avatar: ExternalLinksModel.DefaultUserImage } as UserModel);
+            this.user$ = of({ avatar: ExternalLinksConstants.defaultUserImage } as UserModel);
         } else {
             this.userId = +this.route.snapshot.params.id;
             this.userService.getUser(this.userId);

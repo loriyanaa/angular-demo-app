@@ -1,10 +1,11 @@
+import { ApiUrlsConstants } from './../../../shared/constants/api-urls.constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ExternalLinksModel } from '../../../shared/constants/external-links.model';
-import { NotificationsModel } from '../../../shared/constants/notifications.model';
+import { ExternalLinksConstants } from '../../../shared/constants/external-links.constants';
+import { NotificationsConstants } from '../../../shared/constants/notifications.constants';
 import { RoutingService } from '../../../core/services/routing.service';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { UserModel } from '../models/user.model';
@@ -37,7 +38,7 @@ export class UserService {
     public getUsers(pageIndex: number): void {
         this.lastSelectedPageIndex = pageIndex;
 
-        this.httpClient.get<any>(`https://reqres.in/api/users?delay=3&page=${++pageIndex}`)
+        this.httpClient.get<any>(`${ApiUrlsConstants.usersUrl}?delay=3&page=${++pageIndex}`)
             .pipe(catchError((resError) => {
                 const users: UserModel[] = this.users$$.getValue();
                 if (users.length > 0) {
@@ -64,7 +65,7 @@ export class UserService {
     }
 
     public getUser(id: number): void {
-        this.httpClient.get<any>(`https://reqres.in/api/users/${id}`)
+        this.httpClient.get<any>(ApiUrlsConstants.usersUrl + id.toString())
             .pipe(catchError((resError) => {
                 const user: UserModel = this.users$$.getValue().find(u => u.id === id);
                 if (user) {
@@ -90,7 +91,7 @@ export class UserService {
     }
 
     public updateUser(user: UpdatedUserModel): void {
-        this.httpClient.put<UpdatedUserModel>(`https://reqres.in/api/users/${user.id}`, {
+        this.httpClient.put<UpdatedUserModel>(ApiUrlsConstants.usersUrl + user.id.toString(), {
             name: user.name,
             job: user.job
         }).pipe(catchError((resError) => {
@@ -109,13 +110,13 @@ export class UserService {
                 };
 
                 this.user$$.next(updatedUser);
-                this.notificationsService.success(NotificationsModel.UserUpdatedSuccessfully);
+                this.notificationsService.success(NotificationsConstants.userUpdatedSuccessfully);
             }
         });
     }
 
     public addUser(user: UpdatedUserModel): void {
-        this.httpClient.post<UpdatedUserModel>(`https://reqres.in/api/users`, {
+        this.httpClient.post<UpdatedUserModel>(ApiUrlsConstants.usersUrl, {
             name: user.name,
             job: user.job
         }).pipe(catchError((resError) => {
@@ -130,7 +131,7 @@ export class UserService {
                     job: res.job,
                     updatedAt: res.updatedAt,
                     email: user.email,
-                    avatar: ExternalLinksModel.DefaultUserImage
+                    avatar: ExternalLinksConstants.defaultUserImage
                 };
 
                 this.userAdded$$.next(true);
@@ -139,14 +140,14 @@ export class UserService {
                 const updatedUsers = [ ... currentUsers, userToAdd ];
                 this.users$$.next(updatedUsers);
 
-                this.notificationsService.success(NotificationsModel.UserAddedSuccessfully);
+                this.notificationsService.success(NotificationsConstants.userAddedSuccessfully);
                 this.routingService.navigateToUsers(this.lastSelectedPageIndex, true);
             }
         });
     }
 
     public deleteUser(id: number): void {
-        this.httpClient.delete<any>(`https://reqres.in/api/users/${id}`)
+        this.httpClient.delete<any>(ApiUrlsConstants.usersUrl + id.toString())
             .pipe(catchError((resError) => {
                 this.notificationsService.error(resError.message);
 
@@ -158,7 +159,7 @@ export class UserService {
                     const updatedUsers = this.users$$.getValue().filter(user => user.id !== id);
                     this.users$$.next(updatedUsers);
 
-                    this.notificationsService.success(NotificationsModel.UserDeletedSuccessfully);
+                    this.notificationsService.success(NotificationsConstants.userDeletedSuccessfully);
                     this.routingService.navigateToUsers(this.lastSelectedPageIndex, true);
                 }
             });
