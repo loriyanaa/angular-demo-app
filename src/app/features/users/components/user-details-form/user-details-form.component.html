@@ -21,6 +21,7 @@
     <mat-label>Email</mat-label>
     <input matInput formControlName="email">
     <mat-error *ngIf="userDetailsForm.controls.email.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="userDetailsForm.controls.email.hasError('pattern')">Email is not valid</mat-error>
   </mat-form-field>
   <mat-form-field class="user-details-form-field">
     <mat-label>Job</mat-label>

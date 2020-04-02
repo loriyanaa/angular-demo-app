@@ -6,11 +6,12 @@ import {
     Output,
     SimpleChanges,
     ChangeDetectionStrategy
-    } from '@angular/core';
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserModel } from '../../models/user.model';
 import { UpdatedUserModel } from '../../models/updated-user.model';
+import { ValidationConstants } from '../../../../shared/constants/validation.constants';
 
 @Component({
     selector: 'ums-user-details-form',
@@ -65,7 +66,11 @@ export class UserDetailsFormComponent implements OnChanges {
         this.userDetailsForm = this.formBuilder.group({
             id: [null],
             name: [null, Validators.required],
-            email: [null, Validators.required],
+            email: [null, [
+                    Validators.required,
+                    Validators.pattern(ValidationConstants.emailRegexPattern)
+                ],
+            ],
             job: [null, Validators.required]
         });
     }

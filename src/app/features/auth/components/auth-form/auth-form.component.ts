@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
+import { ValidationConstants } from 'src/app/shared/constants/validation.constants';
+
 @Component({
     selector: 'ums-auth-form',
     templateUrl: './auth-form.component.html',
@@ -16,8 +18,20 @@ export class AuthFormComponent implements OnInit {
 
     public ngOnInit(): void {
         this.authForm = this.formBuilder.group({
-            email: [null, Validators.required],
-            password: [null, Validators.required],
+            email: [
+                null,
+                [
+                    Validators.required,
+                    Validators.pattern(ValidationConstants.emailRegexPattern)
+                ]
+            ],
+            password: [
+                null,
+                [
+                    Validators.required,
+                    Validators.minLength(ValidationConstants.passwordMinLength)
+                ]
+            ]
         });
     }
 

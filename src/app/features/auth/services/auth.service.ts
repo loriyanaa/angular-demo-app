@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { RoutingService } from '../../../core/services/routing.service';
+import { ApiUrlsConstants } from '../../../shared/constants/api-urls.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
     ) { }
 
     public login(email: string, password: string): void {
-        this.httpClient.post('https://reqres.in/api/login', { email, password })
+        this.httpClient.post(ApiUrlsConstants.loginUrl, { email, password })
             .pipe(catchError(resError => {
                 this.notificationsService.error(resError.error.error);
 
@@ -36,7 +37,7 @@ export class AuthService {
     }
 
     public register(email: string, password: string): void {
-        this.httpClient.post('https://reqres.in/api/register', { email, password })
+        this.httpClient.post(ApiUrlsConstants.registerUrl, { email, password })
             .pipe(catchError(resError => {
                 this.notificationsService.error(resError.error.error);
 
