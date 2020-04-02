@@ -69,7 +69,7 @@ export class UserDetailsFormComponent implements OnChanges {
             email: [null, [
                     Validators.required,
                     Validators.pattern(ValidationConstants.emailRegexPattern)
-                ],
+                ]
             ],
             job: [null, Validators.required]
         });
