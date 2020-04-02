@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -8,16 +8,19 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 
-import { UsersListItemComponent } from './components/users-list-item/users-list-item.component';
-import { UsersContainerComponent } from './containers/users-container/users-container.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { UsersContainerComponent } from './containers/users-container/users-container.component';
+import { UserContainerComponent } from './containers/user-container/user-container.component';
+import { UsersListItemComponent } from './components/users-list-item/users-list-item.component';
 import { UsersSearchComponent } from './components/users-search/users-search.component';
+import { UserDetailsFormComponent } from './components/user-details-form/user-details-form.component';
+import { DeleteUserDialogComponent } from './components/delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatListModule,
         MatPaginatorModule,
@@ -29,8 +32,11 @@ import { UsersSearchComponent } from './components/users-search/users-search.com
     ],
     declarations: [
         UsersContainerComponent,
+        UserContainerComponent,
         UsersListItemComponent,
-        UsersSearchComponent
+        UsersSearchComponent,
+        UserDetailsFormComponent,
+        DeleteUserDialogComponent
     ]
 })
 export class UsersModule { }

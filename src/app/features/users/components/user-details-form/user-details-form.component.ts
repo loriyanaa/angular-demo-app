@@ -9,7 +9,7 @@ import {
     } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserModel } from '../../../users/models/user.model';
+import { UserModel } from '../../models/user.model';
 import { UpdatedUserModel } from '../../models/updated-user.model';
 
 @Component({

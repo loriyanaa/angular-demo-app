@@ -7,7 +7,7 @@ import { ExternalLinksModel } from '../../../shared/constants/external-links.mod
 import { NotificationsModel } from '../../../shared/constants/notifications.model';
 import { RoutingService } from '../../../core/services/routing.service';
 import { NotificationsService } from '../../../core/services/notifications.service';
-import { UserModel } from '../../users/models/user.model';
+import { UserModel } from '../models/user.model';
 import { UpdatedUserModel } from '../models/updated-user.model';
 
 @Injectable({

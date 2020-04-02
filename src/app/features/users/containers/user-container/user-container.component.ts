@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { ExternalLinksModel } from '../../../../shared/constants/external-links.model';
-import { UserModel } from '../../../users/models/user.model';
+import { UserModel } from '../../models/user.model';
 import { DeleteUserDialogComponent } from '../../components/delete-user-dialog/delete-user-dialog.component';
 import { UpdatedUserModel } from '../../models/updated-user.model';
 import { UserService } from '../../services/user.service';

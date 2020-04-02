@@ -5,7 +5,7 @@ import { switchMap, map } from 'rxjs/operators';
 
 import { UserModel } from '../../models/user.model';
 import { SearchUserModel } from '../../models/search-user.model';
-import { UserService } from '../../../user/services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'ums-users-container',
