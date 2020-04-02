@@ -35,7 +35,7 @@ export class UsersContainerComponent implements OnInit {
             this.userService.userDeleted$
         ]).pipe(
             switchMap(_ => this.users$),
-            map(users => this.pageIndex === this.lastPageIndex ?
+            map(users => this.pageIndex === this.lastPageIndex && users.length < this.userPerPageDefault ?
                 this.userPerPageDefault :
                 users.length)
         );

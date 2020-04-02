@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { ExternalLinksConstants } from '../../../../shared/constants/external-links.constants';
-import { UserModel } from '../../models/user.model';
 import { DeleteUserDialogComponent } from '../../components/delete-user-dialog/delete-user-dialog.component';
-import { UpdatedUserModel } from '../../models/updated-user.model';
 import { UserService } from '../../services/user.service';
+import { UserModel } from '../../models/user.model';
+import { UserInfoModel } from '../../models/user-info.model';
 
 @Component({
     selector: 'ums-user-container',
@@ -48,11 +48,11 @@ export class UserContainerComponent implements OnInit {
         });
     }
 
-    public onSaveUserInformation(user: UpdatedUserModel): void {
-        this.userService.updateUser(user);
+    public onSaveUserInformation(user: UserInfoModel): void {
+        this.userService.updateUser(this.userId, user);
     }
 
-    public onAddUser(user: UpdatedUserModel): void {
+    public onAddUser(user: UserInfoModel): void {
         this.userService.addUser(user);
     }
 }

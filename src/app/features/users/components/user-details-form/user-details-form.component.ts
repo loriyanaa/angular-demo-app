@@ -10,7 +10,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserModel } from '../../models/user.model';
-import { UpdatedUserModel } from '../../models/updated-user.model';
+import { UserInfoModel } from '../../models/user-info.model';
 import { ValidationConstants } from '../../../../shared/constants/validation.constants';
 
 @Component({
@@ -22,8 +22,8 @@ import { ValidationConstants } from '../../../../shared/constants/validation.con
 export class UserDetailsFormComponent implements OnChanges {
     @Input() user: UserModel;
 
-    @Output() saveUser = new EventEmitter<UpdatedUserModel>();
-    @Output() addUser = new EventEmitter<UpdatedUserModel>();
+    @Output() saveUser = new EventEmitter<UserInfoModel>();
+    @Output() addUser = new EventEmitter<UserInfoModel>();
 
     public userDetailsForm: FormGroup;
     public updatedAt: Date;
@@ -97,20 +97,15 @@ export class UserDetailsFormComponent implements OnChanges {
     }
 
     private onSaveUser(): void {
-        const updatedUserModel: UpdatedUserModel = {
-            ...this.getPopulatedUserInfo(),
-            id: this.user.id
-        };
-
-        this.saveUser.emit(updatedUserModel);
+        this.saveUser.emit(this.getPopulatedUserInfo());
     }
 
     private onAddUser(): void {
         this.addUser.emit(this.getPopulatedUserInfo());
     }
 
-    private getPopulatedUserInfo(): UpdatedUserModel {
-        const updatedUser: UpdatedUserModel = {
+    private getPopulatedUserInfo(): UserInfoModel {
+        const updatedUser: UserInfoModel = {
             name: this.userDetailsForm.controls.name.value,
             email: this.userDetailsForm.controls.email.value,
             job: this.userDetailsForm.controls.job.value

@@ -1,7 +1,5 @@
-export interface UpdatedUserModel {
-    id?: number;
-    name: string;
-    job: string;
-    email: string;
-    updatedAt?: Date;
+import { UserInfoModel } from './user-info.model';
+
+export interface UpdatedUserModel extends UserInfoModel {
+    updatedAt: Date;
 }

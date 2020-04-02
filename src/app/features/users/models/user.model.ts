@@ -1,8 +1,7 @@
-export interface UserModel {
+import { UserInfoModel } from './user-info.model';
+
+export interface UserModel extends UserInfoModel {
     id: number;
-    email: string;
     avatar: string;
-    name: string;
-    job: string;
     updatedAt?: Date;
 }

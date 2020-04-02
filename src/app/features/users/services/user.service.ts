@@ -1,15 +1,17 @@
-import { ApiUrlsConstants } from './../../../shared/constants/api-urls.constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { ApiUrlsConstants } from '../../../shared/constants/api-urls.constants';
 import { ExternalLinksConstants } from '../../../shared/constants/external-links.constants';
 import { NotificationsConstants } from '../../../shared/constants/notifications.constants';
 import { RoutingService } from '../../../core/services/routing.service';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { UserModel } from '../models/user.model';
 import { UpdatedUserModel } from '../models/updated-user.model';
+import { AddedUserModel } from '../models/added-user.model';
+import { UserInfoModel } from '../models/user-info.model';
 
 @Injectable({
     providedIn: 'root'
@@ -90,10 +92,10 @@ export class UserService {
             });
     }
 
-    public updateUser(user: UpdatedUserModel): void {
-        this.httpClient.put<UpdatedUserModel>(ApiUrlsConstants.usersUrl + user.id.toString(), {
-            name: user.name,
-            job: user.job
+    public updateUser(id: number, userInfo: UserInfoModel): void {
+        this.httpClient.put<UpdatedUserModel>(ApiUrlsConstants.usersUrl + id.toString(), {
+            name: userInfo.name,
+            job: userInfo.job
         }).pipe(catchError((resError) => {
             this.notificationsService.error(resError.message);
 
@@ -105,7 +107,7 @@ export class UserService {
                     ...selectedUser,
                     name: res.name,
                     job: res.job,
-                    email: user.email,
+                    email: userInfo.email,
                     updatedAt: res.updatedAt
                 };
 
@@ -115,22 +117,21 @@ export class UserService {
         });
     }
 
-    public addUser(user: UpdatedUserModel): void {
-        this.httpClient.post<UpdatedUserModel>(ApiUrlsConstants.usersUrl, {
-            name: user.name,
-            job: user.job
+    public addUser(userInfo: UserInfoModel): void {
+        this.httpClient.post<AddedUserModel>(ApiUrlsConstants.usersUrl, {
+            name: userInfo.name,
+            job: userInfo.job
         }).pipe(catchError((resError) => {
             this.notificationsService.error(resError.message);
 
             return of(null);
-        })).subscribe((res: UpdatedUserModel) => {
+        })).subscribe((res: AddedUserModel) => {
             if (res) {
                 const userToAdd: UserModel = {
                     id: +res.id,
                     name: res.name,
                     job: res.job,
-                    updatedAt: res.updatedAt,
-                    email: user.email,
+                    email: userInfo.email,
                     avatar: ExternalLinksConstants.defaultUserImage
                 };
 
